@@ -1,0 +1,59 @@
+{
+  "note": "This is an illustrative evaluation artifact. Actual numbers will vary. Run `python scripts/run_eval.py` against a running backend to regenerate.",
+  "generated_at": "2026-04-21T12:00:00Z",
+  "config": {
+    "app_env": "dev",
+    "model_provider": "openai",
+    "model_name": "gpt-4o-mini",
+    "llm_enabled": false,
+    "embeddings_provider": "local",
+    "default_crawl_depth": 1,
+    "default_page_limit": 5
+  },
+  "targets": {
+    "good": {
+      "url": "https://www.w3.org/WAI/demos/bad/after/home.html",
+      "elapsed_s": 22.4,
+      "scan_id": "abc123...",
+      "status": "succeeded",
+      "score": 94.5,
+      "grade": "A",
+      "pages_scanned": 3,
+      "findings_total": 2,
+      "severity_breakdown": {"moderate": 1, "minor": 1},
+      "pct_with_screenshot_evidence": 100.0,
+      "pct_with_wcag_evidence": 100.0
+    },
+    "bad_first": {
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "elapsed_s": 28.1,
+      "scan_id": "def456...",
+      "status": "succeeded",
+      "score": 52.0,
+      "grade": "F",
+      "pages_scanned": 3,
+      "findings_total": 41,
+      "severity_breakdown": {"critical": 3, "serious": 19, "moderate": 12, "minor": 7},
+      "pct_with_screenshot_evidence": 73.2,
+      "pct_with_wcag_evidence": 100.0
+    },
+    "bad_second": {
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "elapsed_s": 26.9,
+      "scan_id": "ghi789...",
+      "status": "succeeded",
+      "score": 52.0,
+      "grade": "F",
+      "pages_scanned": 3,
+      "findings_total": 41,
+      "severity_breakdown": {"critical": 3, "serious": 19, "moderate": 12, "minor": 7},
+      "pct_with_screenshot_evidence": 70.7,
+      "pct_with_wcag_evidence": 100.0
+    }
+  },
+  "compare_smoke": {
+    "ok": true,
+    "delta": {"new": 0, "resolved": 0, "recurring": 41, "total_current": 41, "total_previous": 41},
+    "score_delta": 0.0
+  }
+}

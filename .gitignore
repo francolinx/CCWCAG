@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.env
+.env.local
+*.log
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+
+backend/data/app.db
+backend/data/app.db-*
+backend/data/vectorstore/
+backend/data/artifacts/screenshots/*
+backend/data/artifacts/annotations/*
+backend/data/artifacts/reports/*
+!backend/data/artifacts/**/.gitkeep
+
+# keep sample evaluation artifact, ignore generated ones
+!backend/data/artifacts/reports/sample_*.json

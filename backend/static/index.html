@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accessibility Remediation Copilot</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="logo" aria-hidden="true">♿</span>
+      <div>
+        <h1>Accessibility Remediation Copilot</h1>
+        <p class="tag">Multi-agent WCAG scanning, grounded remediation, screenshots &amp; scan history.</p>
+      </div>
+    </div>
+    <nav aria-label="Primary">
+      <a href="/docs" target="_blank" rel="noopener">API docs</a>
+      <a href="https://www.w3.org/WAI/WCAG22/Understanding/" target="_blank" rel="noopener">WCAG&nbsp;2.2</a>
+    </nav>
+  </header>
+
+  <main id="app">
+    <section class="card" aria-labelledby="start-heading">
+      <h2 id="start-heading">Start a scan</h2>
+      <form id="scan-form">
+        <label for="url">Site URL
+          <input id="url" name="url" type="url" required placeholder="https://example.com" />
+        </label>
+        <div class="row">
+          <label for="depth">Depth
+            <select id="depth" name="depth">
+              <option value="0">0 · root only</option>
+              <option value="1" selected>1 · homepage + top links</option>
+              <option value="2">2 · two levels</option>
+            </select>
+          </label>
+          <label for="limit">Page limit
+            <input id="limit" name="limit" type="number" min="1" max="25" value="5" />
+          </label>
+          <label class="check">
+            <input id="secondary" type="checkbox" checked /> secondary audit
+          </label>
+          <label class="check">
+            <input id="screenshots" type="checkbox" checked /> screenshots
+          </label>
+        </div>
+        <button type="submit">Start scan</button>
+      </form>
+      <p id="config-line" class="muted"></p>
+    </section>
+
+    <section class="card" id="progress-card" hidden aria-live="polite">
+      <h2>Scan progress</h2>
+      <p id="progress-line" class="muted"></p>
+      <div class="meter"><div id="progress-bar"></div></div>
+    </section>
+
+    <section class="card" id="result-card" hidden>
+      <header class="result-header">
+        <div>
+          <h2 id="result-title"></h2>
+          <p id="result-exec" class="muted"></p>
+        </div>
+        <div class="score-block">
+          <div id="score" class="score">–</div>
+          <div id="grade" class="grade">–</div>
+        </div>
+      </header>
+      <div id="severity-bar" class="severity-bar"></div>
+      <div id="findings"></div>
+    </section>
+
+    <section class="card" id="history-card" hidden>
+      <h2>Scan history</h2>
+      <p class="muted">Compare the current scan against a prior run for the same domain.</p>
+      <ul id="history-list"></ul>
+      <div id="compare-result"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="muted">
+      Automated checks catch roughly 30–50% of accessibility issues — human review is still required for full WCAG compliance.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

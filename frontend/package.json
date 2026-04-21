@@ -1,0 +1,10 @@
+{
+  "name": "accessibility-remediation-copilot-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static demo UI for the Accessibility Remediation Copilot. Points at a FastAPI backend via the ?api query param (cached in localStorage).",
+  "scripts": {
+    "build": "echo \"static site — nothing to build\" && exit 0",
+    "start": "npx --yes serve public"
+  }
+}
