@@ -30,4 +30,5 @@ RUN mkdir -p /data/vectorstore /data/artifacts/screenshots /data/artifacts/annot
  && python scripts/ingest_wcag.py || true
 
 EXPOSE 8000
-CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Honor $PORT (Render/Fly/Railway inject it); default to 8000 locally.
+CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

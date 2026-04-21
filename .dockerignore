@@ -1,0 +1,27 @@
+.git
+.gitignore
+.venv
+venv
+env
+__pycache__
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.idea
+.vscode
+node_modules
+frontend/node_modules
+
+# local secrets / dev-only files
+.env
+.env.*
+!.env.example
+
+# local DB / vectors / artifacts (baked at build or created at runtime)
+backend/data/app.db
+backend/data/app.db-*
+backend/data/vectorstore/
+backend/data/artifacts/screenshots/*
+backend/data/artifacts/annotations/*
+backend/data/artifacts/reports/*
+!backend/data/artifacts/**/.gitkeep

@@ -1,0 +1,60 @@
+# Render Blueprint for the Accessibility Remediation Copilot backend.
+#
+# Deploy: push this repo to GitHub → Render dashboard → New → Blueprint →
+# pick the repo → Render auto-detects this file.
+#
+# Why not the free tier? Playwright's Chromium + sentence-transformers embeddings
+# need > 512 MB of RAM to run reliably. "standard" (2 GB) is the smallest
+# plan that works well. Downgrade to "starter" only if you switch embeddings
+# to the hash fallback and accept slower scans.
+#
+# IMPORTANT: set OPENAI_API_KEY (and only that) as a Secret in the Render
+# dashboard AFTER the first deploy — never commit it. The app runs fine
+# without it (deterministic remediation fallback).
+
+services:
+  - type: web
+    name: accessibility-remediation-copilot-api
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: standard         # 2 GB RAM, 1 vCPU — required for Playwright + embeddings
+    region: oregon         # change if you prefer another region
+    autoDeploy: true
+    healthCheckPath: /api/health
+
+    disk:
+      name: copilot-data
+      mountPath: /data     # matches SQLITE_PATH / VECTOR_DB_PATH / ARTIFACTS_DIR in the Dockerfile
+      sizeGB: 5
+
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_HOST
+        value: 0.0.0.0
+      - key: PLAYWRIGHT_HEADLESS
+        value: "true"
+      - key: PLAYWRIGHT_TIMEOUT_MS
+        value: "45000"
+      - key: PLAYWRIGHT_NAV_WAIT
+        value: networkidle
+      - key: EMBEDDINGS_PROVIDER
+        value: local
+      - key: EMBEDDINGS_MODEL
+        value: all-MiniLM-L6-v2
+      - key: MODEL_PROVIDER
+        value: openai
+      - key: MODEL_NAME
+        value: gpt-4o-mini
+      # Set OPENAI_API_KEY in the Render dashboard, not here.
+      - key: OPENAI_API_KEY
+        sync: false
+      # CORS: replace with your Vercel URL after it's live, e.g.
+      # https://your-frontend.vercel.app
+      - key: CORS_ALLOW_ORIGINS
+        value: "*"
+      - key: DEFAULT_CRAWL_DEPTH
+        value: "1"
+      - key: DEFAULT_PAGE_LIMIT
+        value: "5"
